@@ -1,0 +1,51 @@
+% Bisection Method Implementation with Proper Alignment
+clc; clear; close all;
+
+% Define the function as an anonymous function
+f = @(x) x^3 - x - 2; % Example function (change as needed)
+
+% Inputs
+a = 1; % Lower bound of the interval
+b = 2; % Upper bound of the interval
+tol = 1e-6; % Tolerance (stopping criterion)
+max_iter = 50; % Maximum number of iterations
+
+% Check if a valid root exists in [a, b]
+if f(a) * f(b) > 0
+    error('The function must have opposite signs at a and b!');
+end
+
+% Initialization
+iter = 0;
+c = a; % Initial midpoint
+
+% Display header for output with proper alignment
+fprintf('Iter\t\t%-10s\t%-10s\t%-10s\t%-10s\n', 'a', 'b', 'c', 'f(c)');
+
+while (b - a)/2 > tol && iter < max_iter
+    % Increment iteration count
+    iter = iter + 1;
+    
+    % Compute midpoint
+    c = (a + b) / 2;
+    fc = f(c);
+    
+    % Display iteration details with proper alignment
+    fprintf('%3d\t\t%-10.6f\t%-10.6f\t%-10.6f\t%-10.6f\n', iter, a, b, c, fc);
+    
+    % Check if the root is found
+    if abs(fc) < tol
+        break;
+    end
+    
+    % Update the interval
+    if f(a) * fc < 0
+        b = c; % Root lies in [a, c]
+    else
+        a = c; % Root lies in [c, b]
+    end
+end
+
+% Final result
+fprintf('\nThe root is approximately: %.6f\n', c);
+fprintf('Number of iterations: %d\n', iter);
