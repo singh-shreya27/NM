@@ -49,3 +49,34 @@ end
 % Final result
 fprintf('\nThe root is approximately: %.6f\n', c);
 fprintf('Number of iterations: %d\n', iter);
+
+
+clear all
+clc
+a = input('Please enter a function of x :', 's');
+b = str2func(['@(x)', a]);
+c = input('Please enter the first value :');
+d = input('Please enter the second value :');
+e = input('Please enter the error term :');
+f = 0;
+g = 0;
+if b(c)*b(d)>0
+    error('Initial values are invalid');
+end
+if b(c)<0
+    f = c;
+    g = d;
+else
+    f = d;
+    g = c;
+end
+h = ((f*b(g))-(g*b(f)))/(b(g)-b(f));
+while abs(b(h))>e
+    if b(h)<0
+        f = h;
+    else
+        g = h;
+    end
+    h = ((f*b(g))-(g*b(f)))/(b(g)-b(f));
+end
+fprintf('The value of the root is : %.4f', h);
