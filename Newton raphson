@@ -1,1 +1,23 @@
 
+clear all
+clc
+syms x;
+a = x^2 - 5*x + 6;
+b = input("Enter the first value :");
+c = input("Enter the second value :");
+tolerable_error = input("Enter the tolerable error :");
+e = diff(a,x);
+f_b = eval(subs(a, x, b));
+f_c = eval(subs(a, x, c));
+if f_b*f_c>0
+    error("Please enter the correct initial values :");
+end
+g = (b+c)/2;
+f_g = eval(subs(a, x, g));
+g_g = eval(subs(e, x, g));
+while abs(f_g)>tolerable_error
+    g = g - (f_g/g_g);
+    f_g = eval(subs(a,x,g));
+    g_g = eval(subs(e,x,g));
+end
+fprintf("The value of the root is :%.4f", g);
