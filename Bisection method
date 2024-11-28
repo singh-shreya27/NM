@@ -49,3 +49,31 @@ end
 % Final result
 fprintf('\nThe root is approximately: %.6f\n', c);
 fprintf('Number of iterations: %d\n', iter);
+
+
+clear all
+clc
+a = @(x) x^2-5*x+6;
+b = input("Enter the first value :");
+c = input("Enter the second value :");
+e = input("Enter the number of iterations :");
+if a(b)*a(c)>0
+    error("Please enter the correct initial values");
+end
+if a(c)<0
+    d = b;   
+    b = c;
+    c = d;
+end
+f = (b+c)/2;
+g = a(f);
+for i=1:e
+    if g<0
+        b = f;
+    else
+        c = f; 
+    end
+    f = (b+c)/2;
+    g = a(f);
+end
+fprintf("The value of the root is :%.4f", f);
