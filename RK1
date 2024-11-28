@@ -1,0 +1,22 @@
+syms x y;
+%define dy/dx in form of f(x,y)
+f=x^2+y;
+
+x0=input('Enter value of x0: ');
+y0=input('Enter value of y0: ');
+h=input("Enter the value of h: ");
+xn=input("Enter value of x at which value of y is to be found: ");
+
+k1=h*subs(f, [x, y], [x0,y0]);
+k2=h*subs(f, [x, y], [x0+h,y0+k1]);
+
+n=(xn-x0)/h;
+yn=y0;
+for i=1:n
+    ynn=yn+0.5*(k1+k2);
+    fprintf("value of y%d is %f\n",i,ynn );
+    yn=ynn;
+end
+
+fprintf('Value of y at x=%.4f is %f',xn,ynn);
+fprintf('\n');
