@@ -14,3 +14,38 @@ for k=n-1:-1:1
     x(k) = (aug(k,n+1) - aug(k,k+1:n)*x(k+1:n))/aug(k,k);
 end
 x
+
+
+% Input the coefficient matrix A and source vector B
+a = input('Enter your coefficient matrix A: ');
+b = input('Enter your source vector B: ');
+
+% Number of equations (n x n matrix assumed)
+n = length(b);
+
+% Augmented matrix [A|B]
+aug = [a b];
+
+% Step 1: Forward Elimination
+for j = 1:n-1
+    for i = j+1:n
+        % Compute the multiplier
+        m = aug(i,j) / aug(j,j);
+        
+        % Update the rows
+        aug(i,:) = aug(i,:) - m * aug(j,:);
+    end
+end
+
+% Step 2: Back Substitution
+x = zeros(n,1); % Initialize solution vector
+x(n) = aug(n,n+1) / aug(n,n); % Last variable
+
+for k = n-1:-1:1
+    % Calculate each x(k) using previously computed values
+    x(k) = (aug(k,n+1) - aug(k,k+1:n) * x(k+1:n)) / aug(k,k);
+end
+
+% Display the result
+disp('The solution vector x is:');
+disp(x);
